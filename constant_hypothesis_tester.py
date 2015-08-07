@@ -10,10 +10,10 @@ for fileName in os.listdir('simulations'):
 		T_start = int(fileName[6])
 		T_stop  = int(fileName[13:-4])
 		
-		try:
-			data = np.loadtxt('simulations/'+fileName,skiprows=1)
-		except ValueError,StopIteration:
-			continue
+		#try:
+		data = np.loadtxt('simulations/'+fileName,skiprows=1)
+		#except ValueError,StopIteration:
+		#continue
 		
 		n  = len(data[0])
 		m1 = np.mean(data,axis=1)
