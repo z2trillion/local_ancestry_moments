@@ -3,7 +3,7 @@
 \usepackage[round]{natbib}
 \linenumbers
 \onehalfspacing
-\title{Estimating Admixture Parameters from Admixture Fractions}
+\title{Understanding Admixture Fractions}
 \author{Mason Liang and Rasmus Nielsen}
 \date{\today}
 
@@ -14,35 +14,35 @@ Estimation of admixture fractions has become one of the most commonly used compu
 \maketitle
 
 \section*{Introduction}
-It is common in population genetic analyses to consider individuals as belonging fractionally to two or more discrete source populations. The proportion of an individual's genome that belongs to a population is called that individual's ``admixture fraction" or ``admixture proportion". Programs such as \verb|Structure| \citep{pritchard2000inference}, \verb|Eigenstrat|, \verb|Frappe| \citep{tang2005estimation}, or \verb|Admixture| \citep{alexander2009fast} can jointly estimate these admixture fractions for multiple individuals in a sample, along with the corresponding  allele frequencies in each of the source populations. These admixture fractions are often presented in a `structure plot,' an example of which is shown in Figure \ref{structure_plot}. We will henceforth refer to these methods as 'structure analyses'. 
+It is common in population genetic analyses to consider individuals as belonging fractionally to two or more discrete source populations. The proportion of an individual's genome that belongs to a population is called that individual's `admixture fraction' or `admixture proportion'. Programs such as \verb|Structure| \citep{pritchard2000inference}, \verb|Eigenstrat| \citep{price2006principal}, \verb|Frappe| \citep{tang2005estimation}, or \verb|Admixture| \citep{alexander2009fast} can jointly estimate these admixture fractions for multiple individuals in a sample, along with the corresponding  allele frequencies in each of the source populations. These admixture fractions are often presented in a `structure plot,' an example of which is shown in Figure \ref{structure_plot}. We will henceforth refer to these methods as `structure analyses'. 
 This approach has proven highly useful for understanding genetic relationships in many different species, e.g. humans \citep{rosenberg2002genetic}, cats \citep{menotti2008patterns}, or pandas \citep{zhang2007genetic}. Other analyses reconstruct admixture tracts for each genome in the sample, by inferring the local ancestry of every position, or window, in each sampled genome \citep{tang2006reconstructing,maples2013rfmix}. In this context, the admixture fraction for a genome is the fraction of its total length that is inherited from a particular source population. 
 
-Although structure analyses are not tied to any particular mechanistic model of population history and demography, the admixture fractions and admixture tracts are commonly interpreted to be the result of past admixture events in which modern populations were formed by admixture (or introgression) between ancestral source populations. The distribution of admixture tract lengths has been related to specific mechanistic models of admixture \citep{falush2003inference,tang2006reconstructing,pool2009inference}, and has been used to estimate times of admixture \citep{gravel2012population}. However, the admixture proportions themselves also contain information regarding admixture times. Right after an admixture event, the variance in admixture proportions within a population will be high, but will thereafter decrease, and will eventually (as we will show) converge to zero in the limit of large genomes.  
+Although structure analyses are not tied to any particular mechanistic model of population history and demography, the admixture fractions and admixture tracts are commonly interpreted to be the result of past admixture events in which modern populations were formed by admixture (or introgression) between ancestral source populations. The distribution of admixture tract lengths has been related to specific mechanistic models of admixture \citep{falush2003inference,tang2006reconstructing,pool2009inference}, and has been used to estimate times of admixture \citep{gravel2012population}. However, the admixture proportions themselves also contain information regarding admixture times. Following an admixture event, the variance in admixture proportions within a population will be high, but will thereafter decrease, and will eventually converge to zero in the limit of large genomes.  
 The variance in admixture fractions among individuals contains substantial information about the time since admixture that can be used in addition to the tract length distribution.  
-It may in some cases be more robust than inferences based on tract lengths, because the length distribution of tracts is often difficult to infer, and is often not modeled accurately by the hidden Markov model (HMM) methods used to infer tract lengths \citep{liang2014lengths}.
+In some cases, this may be more robust than inferences based on tract lengths, because the length distribution of tracts is often difficult to infer, and is often not modeled accurately by the hidden Markov model (HMM) methods used to infer tract lengths \citep{liang2014lengths}.
 Even in cases where tract lengths can be accurately inferred, studies aimed at estimating admixture times should benefit from using both variance in admixture proportions among individuals and overall admixture tract lengths distributions.  
 
 \citet{verdu2011general} developed a method for computing moments of admixture proportions in a model in which admixed population is formed as a mixture between multiple source populations, allowing for arbitrary gene-flow from the source populations over a number of generations ($g$). They establish recursions for the moments of the admixture fractions and use these equations to determine how the mean and the variance changes through time in particular admixture scenarios. These moments are expectations for \textit{single} individual's admixture fraction and are averaged over the possibile genealogical histories of the population. As a result, they can be difficult to relate to data because replicates from multiple identical populations rarely are available. In this paper, we consider a different problem, the problem of calculating sample moments for admixture proportions obtained from individuals in one population. 
 
-We extend the model model in \citet{verdu2011general} to incorporate the effects of recombination and genetic drift by adding a a random union of gametes component. Recombination is important because even if one half of a chromosome's ancestors are from the first source population, it is unlikely that exactly one half of that chromosome's genetic material is inherited from that population. Genetic drift is important because the individuals in a sample might share ancestors and, therefore, have more similar admixture fractions than expected by chance in a model without drift. The results developed in this paper should be directly applicable for quantifying the results of a structure analysis.
+We extend the model in \citet{verdu2011general} to incorporate the effects of recombination and genetic drift by adding a a random union of zygotes component. Recombination is important because even if one half of a chromosome's ancestors are from the first source population, it is unlikely that exactly one half of that chromosome's genetic material is inherited from that population. Genetic drift is important because the individuals in a sample might share ancestors and, therefore, have more similar admixture fractions than expected by chance in a model without drift. The results developed in this paper should be directly applicable for quantifying the results of a structure analysis.
 
 \section*{The General Mechanistic Model}
-We start by considering admixture fractions in haploid genomes. These haploid admixture fractions can later be paired up to create diploid admixture fractions. The admixture fraction of a (haploid) genome $H_i$, is the proportion of $H_i$ that is inherited from a particular source population. For notational simplicity, we only consider gene-flow only from one population into another. We will later discuss how to extend this model to multiple admixing source populations. We use the same mechanistic admixture model of \citet{verdu2011general}, and will use its notation where possible. Finally, we use the random union of gametes model for genetic drift and recombination, and assume a sample size of $n$ chromosomes from a single population.
+We start by considering admixture fractions in haploid genomes. These haploid admixture fractions can later be paired up to create diploid admixture fractions. The admixture fraction of a (haploid) genome $H_i$, is the proportion of $H_i$ that is inherited from a particular source population. For notational simplicity, we only consider gene-flow only from one population into another. We will later discuss how to extend this model to multiple admixing source populations. We use the same mechanistic admixture model of \citet{verdu2011general}, and will use its notation where possible. Finally, we use the random union of zygotes model, with a diploid population size of $N$ ($2N$ chromosomes), for genetic drift and recombination, and assume a sample size of $n$ chromosomes from a single population.
 
-In the model of \citet{verdu2011general}, a hybrid population of $N$ diploid individuals forms in generation 1 from two isolated source populations. In this first generation, individuals in the hybrid population are from the first source population with probability $s_0$ or from the second source population with probability $1-s_0$. In subsequent generations, each individual in the hybrid population draws two recombined gametes at random from the previous generation. In generation $g+1$, each gamete is, independently, from the first source population with introgression probability $s_g$, or from the hybrid population with probability $1-s_g$. If the individual inherits both of its gametes from the hybrid population, the two gametes are from the same individual with probability $1/N$, and from different individuals with probability $1-1/N$. 
+In this model, a hybrid population of $N$ diploid individuals forms in generation 1 from two previously isolated source populations. In this first generation, individuals in the hybrid population are from the first source population with probability $s_0$ or from the second source population with probability $1-s_0$. In generation $g+1$, each chromosome is, independently, from the first source population with introgression probability $s_g$, or from the hybrid population with probability $1-s_g$. Chromosomes inherited from the hybrid population are the product of the recombination of the two chromosomes of one individual (zygote), chosen uniformly at random. Finally, these $2N$ chromosomes are paired up to form the $N$ individuals in generation $g+1$.
 
-Mathematically, if the stochastic process $A(\ell)$ represents the local ancestry along a chromosome as a function of physical position ($\ell$):
+Finally, we let the stochastic process $A(\ell)$ represent the local ancestry along a chromosome as a function of $\ell$, the physical position:
 
 $$
 A(\ell) = \left\{
      \begin{array}{l}
-       0\ :\ \ell $ descended from first source population$\\
-       1\ :\ \ell $ descended from second source population$\\
+       0\ :\ \ell $ is descended from first source population$\\
+       1\ :\ \ell $ is descended from second source population$\\
      \end{array}
-   \right.,
+   \right. .
 $$
 
-then the fraction of the chromosome descended from the second source population is given by
+The fraction of the chromosome descended from the second source population is given by
 
 $$
 H=\frac{1}{L}\int_0^LA(\ell) d\ell,
@@ -52,29 +52,29 @@ where $L$ is the total length of the chromosome.
 
 Assume that $g$ generations after the start of admixture we have randomly sampled $n$ chromosomes from the hybrid population and determined their corresponding admixture fractions, $H_{1(g)},H_{2(g)},\dots,H_{n(g)}$.
 We are interested in the joint distribution of these $n$ random variables.
-When $n=1$ and as $L\rightarrow\infty$, this is the admixture fraction considered in \citep{verdu2011general}.
+When $n=1$ and as $L\rightarrow\infty$, this is the admixture fraction considered by \citet{verdu2011general}.
 
 Because the $n$ chromosomes have possibly overlapping geneologies, the admixture fractions are not independent.
-However, the joint distribution of the admixture fractions does not depend on their ordering, so they are exchangeable (see appendix for mathematical definition). 
+However, the joint distribution of the admixture fractions does not depend on their ordering, so they are exchangeable. 
 As a result, they can be viewed as being identically and independently ($\textit{iid}$) drawn from a random distribution $\mathcal{G}$.
-This random distribution can be interpreted as a deterministic function of the random genealogy of the entire hybrid population up to $g$ generations in the past.
-When $g$ is small, the genealogies of the $n$ samples will be unlikely to differ from $n$ non-overlapping binary trees, so $\mathcal{M}$ will be approximately constant. If $g$ is large however, this will no longer hold.
+This random distribution can be interpreted as a function of the random genealogy of the entire hybrid population up to $g$ generations in the past.
+When $g$ is small, the genealogies of the $n$ samples will be unlikely to differ from $n$ non-overlapping binary trees, so $\mathcal{G}$ will be approximately constant. If $g$ is large however, these genealogies are likely to overlap, and this will no longer be true.
 
 \citet{verdu2011general} focus on moments of $H_{1(g)}$, in particular on the mean and variance.
 However, because the admixture fractions are not independent, even as $n\rightarrow\infty$, the sample mean and sample variance will converge to the mean and variance of $\mathcal{G}$, which are random quantities.
 For example,
 
 \begin{align*}
-\mathbb{E}(H_{1(g)})&\neq\mathbb{E}(H_{1(g)}|\mathcal{M})=\lim_{n\rightarrow\infty}\frac{1}{n}\sum_{i=1}^n H_{i(g)}\\
-\text{var}\left(H_{1(g)}\right)&\neq\text{var}(H_{1(g)}|\mathcal{M})=\lim_{n\rightarrow\infty}\frac{1}{n-1}\sum_{i=1}^n \left(H_{i(g)}-\frac{1}{n}\sum_{j=0}^n H_{j(g)}\right)^2.
+\mathbb{E}(H_{1(g)})&\neq\mathbb{E}(H_{1(g)}|\mathcal{G})=\lim_{n\rightarrow\infty}\frac{1}{n}\sum_{i=1}^n H_{i(g)}\\
+\text{var}\left(H_{1(g)}\right)&\neq\text{var}(H_{1(g)}|\mathcal{G})=\lim_{n\rightarrow\infty}\frac{1}{n-1}\sum_{i=1}^n \left(H_{i(g)}-\frac{1}{n}\sum_{j=0}^n H_{j(g)}\right)^2,
 \end{align*}
 
-and similarly for higher-order moments.  In other words, the moments of the admixture factions have two components: randomness due sampling of population history, and randomness due to the sampling of individuals.  The expressions to left account for both, while the expressions to the right only account for the latter.  Variances among individuals within a population will correspond to var$(H_{1(g)}|\mathcal{M})$ but var$(H_{1(g)})$ will tend to be larger than the expected sample variance calculated from multiple individuals sampled from the same population, and will rarely be useful for inference purposes.
+and similarly for higher-order moments.  The moments of the admixture fractions have two components: randomness from sampling the population genealogy, and randomness from the sampling of chromosomes.  The expressions to the left account for both, while the expressions to the right only account for the latter. Variances among individuals within one population correspond to var$(H_{1(g)}|\mathcal{G})$, while variances over replicate populations correspond to var$(H_{1(g)})$. This latter value will be larger than the expected sample variance calculated from multiple individuals sampled from the same population, and will rarely be useful for inference purposes.
 
 In the following sections, we will show how the constants on the left-hand side, as well as expectations of the random variables on the right-hand side, can be derived for mechanistic models of introgression.
 By comparing these expectations to the observed admixture parameters from a sample, we will be able to construct a method of moments estimator for the  parameters of the model. 
 
-We let $k_1$ be the sample mean:
+Let $k_1$ be the sample mean:
 
 $$
 	k_1\equiv \frac{1}{n}\sum_{i=1}^n H_{i(g)}.
@@ -89,7 +89,7 @@ We can express its expectation in terms of the 1-point correlation function of $
 	&=\mathbb{P}\{A_{1(g)}(0)=1\}.
 \end{align*}
 
-We let $k_2$ be the unbiased estimator of the sample variance:
+Similarly, let $k_2$ be the unbiased estimator of the sample variance:
 
 \begin{align*}
 k_2&\equiv\frac{1}{n-1}\sum_{i=1}^n\left(H_{i(g)}-k_1\right)^2.
@@ -99,11 +99,11 @@ Its expectation is given by
 
 \begin{align*}
 	\mathbb{E}(k_2)
-	&=\frac{1}{n-1}\sum_{i=1}^n \mathbb{E}(H_{i,g}^2)-\frac{1}{n(n-1)}\sum_{i,j=1}^n \mathbb{E}(H_{i,g}H_{j,g})\\
+	&=\frac{1}{n-1}\sum_{i=1}^n \mathbb{E}(H_{i,g}^2)-\frac{1}{n(n-1)}\sum_{i\neq j} \mathbb{E}(H_{i,g}H_{j,g})\\
 	&=\mathbb{E}(H_{1,g}^2)-\mathbb{E}(H_{1,g}H_{2,g}).
 \end{align*}
 
-These expectations can be written in terms of two-point correlation functions:
+These expectations can be written in terms of two-point correlation functions of $A$:
 
 \begin{align*}
 	\mathbb{E}(H_{1(g)}^2)
@@ -122,10 +122,10 @@ Similarly,
 Writing these two correlation functions as 
 
 $$\mathbf{v}_{2(g)}=\left( \begin{array}{r}
-			\mathbb{P}\left\{A_{1,g}(\ell)=1, A_{1,g}(\ell')=1\right\} \\ \mathbb{P}\left\{A_{1,g}(\ell)=1, A_{2,g}(\ell')=1\right\}
+			\mathbb{P}\left\{A_{1(g)}(\ell)=1, A_{1(g)}(\ell')=1\right\} \\ \mathbb{P}\left\{A_{1(g)}(\ell)=1, A_{2(g)}(\ell')=1\right\}
 		\end{array} \right),$$
 
-we get that
+we find that
 
 \begin{align}
 	\mathbb{E}(k_2)&=\frac{1}{L^2}\int_0^L\int_0^L\left( \begin{array}{cc}
@@ -133,81 +133,81 @@ we get that
 	\label{k2}
 \end{align}
 
-In general, the $i^\text{th}$ $k$-statistic is an unbiased estimator of the $i^\text{th}$ cumulant of $\mathcal{M}$, and its expectation can be written as an integral over $[0,L]^i $ of a linear combinations of $i$-point correlation functions.
+In general, the $i^\text{th}$ $k$-statistic is an unbiased estimator of the $i^\text{th}$ cumulant of $\mathcal{G}$, and its expectation can be written as an integral over $[0,L]^i $ of a linear combinations of $i$-point correlation functions.
 For example, 
 
 \begin{align*}
 	\mathbb{E}(k_3)&=\frac{1}{L^3}\int_0^L\int_0^L\int_0^L\left( \begin{array}{ccccc}
 			1 & -1 &-1 &-1 &2	\end{array} \right)\mathbf{v}_{3(g)} d\ell d\ell'd\ell''\\
-	\mathbb{E}(k_4)&=\frac{1}{L^4}\int_0^L\int_0^L\int_0^L\int_0^L \Bigl(
+	\mathbb{E}(k_4)&=\frac{1}{L^4}\int_{[0,L]^4}\Bigl(
 			1 \  \underbrace{-1}_\text{4 times} \  \underbrace{-1}_\text{3 times} \  \underbrace{2}_\text{6 times} \ 6 \Bigr)\mathbf{v}_{4(g)} d\ell d\ell'd\ell''d\ell'''\\
 			\dots
 \end{align*}
 
-Remarkably, the linear combinations required to compute the expectations of the $k$-statistics correspond exactly to the higher-order disequilibria as defined in [Bennett 1948?].
-Furthermore, if instead the we choose to compute the expectations of the $h$-statistics, which estimate the central moments, the linear combinations would correspond to the higher-order disequilibria as defined in [Slatkin 1972].
+Remarkably, the linear combinations required to compute the expectations of the $k$-statistics correspond exactly to the higher-order disequilibria as defined by \citet{bennett1952theory}.
+Furthermore, if instead the we choose to compute the expectations of the $h$-statistics, which estimate the central moments, the linear combinations would correspond to the higher-order disequilibria as defined by \citet{slatkin1972treating}.
 
 We next find the recurrence relations these correlation functions satisfy and solve them in the some special cases. In particular we will consider the case of a single admixture event $g$ generations ago and the case of constant gene-flow starting $g$ generations ago.
 
 \subsection*{A Single Admixture Event}
-We start with a simple case, where introgression only occurs in the founding generation, i.e. $s_g=0$ for $g>0$. Using the random union of gametes model, we can compute $\mathbf{v}_{2(g)}$ in terms of the probabilities from the previous generation:
+We start with a simple case, where introgression only occurs in the founding generation, i.e. $s_g=0$ for $g>0$. Using the random union of zygotes model, we can compute $\mathbf{v}_{2(g)}$ in terms of the probabilities from the previous generation:
 
-If two sites at $\ell$ and $\ell'$ are on the same chromosome in generation $g$, then they were inherited from one gamete from one parent in the previous generation, while if they 	are on different haplotypes, then the probability that they are from gametes from one parent is $1/N$.
-On one gamete, the probability that these two sites are inherited from the same parental chromosome is $[\ell \ell']$ and the probability that they are instead inherited from different parental chromosomes is $[\ell|\ell']$.
+If two sites at genetic distances $\ell$ and $\ell'$ are on the same chromosome in generation $g+1$, then they were inherited from one chromosome from generation $g$ with probability $[\ell\ell']$ and from two chromosomes from generation $g$ with probability $[\ell|\ell']$.
+If they are on different chromosomes, then the probability that they are descended from one chromosome in generation $g$ is $\frac{1}{2N}[\ell\ell']$ and the probability that they are descended from two chromosomes is $\frac{1}{2N}[\ell|\ell']+\left(1-\frac{1}{2N}\right)$
 In matrix notation, 
 
 \begin{align*}
-\mathbf{v}_{2(g)}&=
-		\left(\mathbf{L}_2\mathbf{U}_2\right)^g
+\mathbf{v}_{2(g+1)}&=
+		\left(\mathbf{L}_2\mathbf{U}_2\right)
+		\mathbf{v}_{2(g)}
+		= \left(\mathbf{L}_2\mathbf{U}_2\right)^g
 		\mathbf{v}_{2(0)},
 \end{align*}
 
 where the the recombination and drift matrices are given by
 
 \begin{align*}
-	\mathbf{U}_2&=\left( \begin{array}{cc}
-					 {[\ell \ell']} & [\ell|\ell']\\
-					 0 & 1
-				\end{array} \right)\\
 	\mathbf{L}_2&=\left( \begin{array}{cc}
 					 1 & 0\\
-					 1/N & 1-1/N
+					 \frac{1}{2N} & 1-\frac{1}{2N}
+				\end{array} \right)\\
+		\mathbf{U}_2&=\left( \begin{array}{cc}
+					 {[\ell \ell']} & [\ell|\ell']\\
+					 0 & 1
 				\end{array} \right).
 \end{align*}
 
-
-
 This is the the same matrix equation (Wright 1933 and Hill and Robertson 1966) derived for the decay of two-locus linkage disequilibrium.
-The ``alleles" we consider are the local ancestry at $\ell$ and $\ell'$.
+The `alleles' we consider are the local ancestry at $\ell$ and $\ell'$.
 To the extent possible, our notation will follow (Hill 1974), whose results for measures of multi-locus linkage disequilibria we use.
-The matrices $\mathbf{L}_2$ and $\mathbf{U}_2$ share $(1\ -1)$ as a left-eigenvector, with corresponding eigenvalues $1-1/N$ and $[\ell\ell']$.
+The matrices $\mathbf{L}_2$ and $\mathbf{U}_2$ share $(1\ -1)$ as a left-eigenvector, with corresponding eigenvalues $1-\frac{1}{2N}$ and $[\ell\ell']$.
 As a result,
 
 \begin{align}
 	\mathbb{E}(k_2)&=\frac{1}{L^2}\int_0^L\int_0^L\left( \begin{array}{cc}
 			1 & -1	\end{array} \right)\cdot\left(\mathbf{L}_2\mathbf{U}_2\right)^g
 		\mathbf{v}_{2(0)} d\ell d\ell'\nonumber\\
-		&=\frac{1}{L^2}\left(1-\frac{1}{N}\right)^g\left( s_{1,0}-s_{1,0}^2 \right)\int_0^L\int_0^L [\ell\ell']^g d\ell d\ell'.
+		&=\frac{1}{L^2}\left(1-\frac{1}{2N}\right)^g\left( s_{0}-s_{0}^2 \right)\int_0^L\int_0^L [\ell\ell']^g d\ell d\ell'.
 	\label{k2_pulse}
 \end{align}
 
 For a model using the Haldane map function,  $[\ell|\ell']=\frac{1-\exp(-2|\ell-\ell'|)}{2}$, this equation becomes
 
 \begin{align*}
-	\mathbb{E}(k_2)&=\frac{1}{L^2}\left(1-\frac{1}{N}\right)^g\left( s_{1,0}-s_{1,0}^2 \right)\int_0^L\int_0^L \left(\frac{1+\exp(-2|\ell-\ell'|)}{2}\right)^g d\ell d\ell',
+	\mathbb{E}(k_2)&=\frac{1}{L^2}\left(1-\frac{1}{2N}\right)^g\left( s_{0}-s_{0}^2 \right)\int_0^L\int_0^L \left(\frac{1+\exp(-2|\ell-\ell'|)}{2}\right)^g d\ell d\ell'\\
+	&=\frac{2}{L^2}\left(1-\frac{1}{2N}\right)^g\left( s_{0}-s_{0}^2 \right)\int_0^L (L-\ell)\left(\frac{1+\exp(-2\ell)}{2}\right)^g d\ell d\ell',
 \end{align*}
 
- while for a model of complete crossover inteference on a chromosome of length 1 Morgan, we can get a closed form solution:
+ while for a model of complete crossover interference on a chromosome of length 1 Morgan, we can get a closed form solution:
 
 \begin{align*}
-	\mathbb{E}(k_2)&=\left(1-\frac{1}{N}\right)^g\left( s_{1,0}-s_{1,0}^2 \right)\int_0^1\int_0^1 \left(1-|\ell-\ell'|\right)^g d\ell d\ell'\\
-	&=\left(1-\frac{1}{N}\right)^g \left(s_{1,0}-s_{1,0}^2\right) \frac{2}{2+g}.
+	\mathbb{E}(k_2)&=\left(1-\frac{1}{2N}\right)^g\left( s_{0}-s_{0}^2 \right)\int_0^1\int_0^1 \left(1-|\ell-\ell'|\right)^g d\ell d\ell'\\
+	&=\left(1-\frac{1}{2N}\right)^g \left(s_{0}-s_{0}^2\right) \frac{2}{2+g}.
 \end{align*}
 
 For predicting the expected sample variance, the difference between these two models is not large, as shown in figure \ref{ek2_rec}.
-
 For the simulations and inference in this paper, we will ignore crossover interference, and use the Haldane map function.
-However, none of the mathematical results of this paper will require this assumption.
+However, none of the mathematical results of this paper will require this assumption of no crossover interference.
 
 For computing higher-order correlation functions, we find a similar equation
 
@@ -222,11 +222,10 @@ Bennett's coefficients for higher-order linkage are left-eigenvectors of the rec
 For $i=3$, it is also a left-eigenvector of the drift matrix, so we immediately get that 
 
 \begin{align*}
-	\mathbb{E}(k_3)&=\frac{s_0(1-s_0)(2-s_0)}{L^3}\left(1-\frac{1}{2N}\right)^T\left(1-\frac{2}{2N}\right)^T\int_0^L\int_0^L\int_0^L[\ell\ell'\ell'']^Td\ell d\ell'd\ell''.
+	\mathbb{E}(k_3)&=\frac{s_0(1-s_0)(2-s_0)}{L^3}\left(1-\frac{1}{2N}\right)^T\left(1-\frac{2}{2N}\right)^T\int_{[0,L]^3}[\ell\ell'\ell'']^Gd\ell d\ell'd\ell''.
 \end{align*}
 
-For $i\geq 4$, this is no longer true, but the results of [Hill 197?] can be used to compute $\textbf{v}_{i}$ without having to exponentiate the entire drift and recombination matrices. For example, for $k_4$, the drift and recombination matrices are $15\times 15$, but using the technique in [Hill 197?], we only need to exponentiate a $4\times 4$ matrix to compute $\mathbb{E}(k_4)$.
-%[Comment: I didn't understand the end of this sentence].
+For $i\geq 4$, this is no longer true, but the results of \citep{hill1974disequilibrium} can be used to compute $\textbf{v}_{i}(g)$ without having to exponentiate the entire drift and recombination matrices. For example, for $k_4$, the drift and recombination matrices are $15\times 15$, but using the technique in \citep{hill1974disequilibrium}, we only need to exponentiate a $4\times 4$ matrix to compute $\mathbb{E}(k_4)$.
 
 \subsection*{Varying Migration}
 If $s_g>0$ for $s\geq 1$, we obtain a modified version of Equation \ref{rug}:
@@ -238,13 +237,11 @@ If $s_g>0$ for $s\geq 1$, we obtain a modified version of Equation \ref{rug}:
 		\label{with_migration}
 \end{align}
 
-where the diagonal matrix $\mathbf{D}_{i(g)}$ has entries giving the probabilities that all $|p|$ haplotypes in a correlation function are not inherited from migrant ancestors in the previous generation:
+where the diagonal matrix $\mathbf{D}_{i(g)}$ has entries giving the probabilities the set of chromosomes, $p$, in a correlation function are all from the hybrid population in the previous generation:
 
 $$ d_{p,p(g)} = (1-s_g)^{|p|}.$$
 
-Note that as $s_{(g)}$ is a constant, then equation (\ref{with_migration}) is linear, and can be solved using a Laplace transform. 
-
-%[insert stuff here]
+Note that if $s_{(g)}$ is fixed, then equation (\ref{with_migration}) is linear, and can be solved using a Laplace transform. 
 
 \section*{Inference of admixture times}
 The equations in the previous section can be used to develop a method of moments-estimators for admixture parameters by numerically solving the admixture parameters in terms of the expectations for the $k$-statistics. Substituting in the observed values for the $k$-statistics gives estimates for the admixture parameter(s). 
@@ -257,20 +254,20 @@ $$\hat{H}_{i(g)}=H_{i(g)}+\epsilon_i.$$
 Because cumulants are additive, 
 
 \begin{align*}
-	\mathbb{E}(k_n)&=\mathbb{E}\left(\kappa_n(H_{i(g)}+\epsilon_i|\mathcal{M})\right)\\
-	&=\mathbb{E}\left(\kappa_n(H_{i(g)}|\mathcal{M})\right)+\kappa_n(\epsilon_i).
+	\mathbb{E}(k_n)&=\mathbb{E}\left(\kappa_n(H_{i(g)}+\epsilon_i|\mathcal{G})\right)\\
+	&=\mathbb{E}\left(\kappa_n(H_{i(g)}|\mathcal{G})\right)+\kappa_n(\epsilon_i).
 \end{align*}
 The expectations we have computed are just the term of this sum.
 To correct for the variability in the estimates, we need to subtract off the second term. 
 We use a block bootstrap to estimate these effects.
 
-One additional complication arises in dealing with genotyping data. We have assumed that we have the ancestry fractions for each haplotype in the sample, but with genotyping data, we instead have their pairwise means: $(H_{1(g)}+H_{2(g)})/2\dots$. In turns out this is results in a decrease in the expectations of the $k$-statitics. Conditional on the random distribution $\mathcal{G}$, $H_{1(g)},H_{2(g)},\dots$ are \textit{iid} drawn from $\mathcal{G}$.
+One additional complication arises in dealing with genotyping data. We have assumed that we have the ancestry fractions for each haplotype in the sample, but with genotyping data, we instead have their pairwise means: $(H_{1(g)}+H_{2(g)})/2\dots$.  This is results in a decrease in the expectations of the $k$-statitics. Conditional on the random distribution $\mathcal{G}$, $H_{1(g)},H_{2(g)},\dots$ are \textit{iid} drawn from $\mathcal{G}$.
 Cumulants are additive, so we use the law of total expectation to find that
 
 \begin{align*}
 	\kappa_i\left(\frac{H_{1(g)}+H_{2(g)}}{2}\right)
 		&=\mathbb{E}\left(\kappa_i\left(\frac{H_{1(g)}+H_{2(g)}}{2}\middle\vert\mathcal{G}\right)\right)\\
-		&=\mathbb{E}\left(\kappa_i\left(\frac{H_{1(g)}}{2}\middle\vert\mathcal{G}\right)+\kappa_i\left(\frac{H_{2(g)}}{2}\middle\vert\mathcal{M}\right)\right)\\
+		&=\mathbb{E}\left(\kappa_i\left(\frac{H_{1(g)}}{2}\middle\vert\mathcal{G}\right)+\kappa_i\left(\frac{H_{2(g)}}{2}\middle\vert\mathcal{G}\right)\right)\\
 		&=2^{-i+1}\mathbb{E}\left(\kappa_i\left(H_{1(g)}\middle\vert\mathcal{G}\right)\right)\\
 		&=2^{-i+1}\kappa_i\left(H_{1(g)}\right).
 \end{align*}
@@ -278,7 +275,7 @@ Cumulants are additive, so we use the law of total expectation to find that
 \subsection*{Comparison to Verdu and Rosenberg}
 The recursion equations given by \citet{verdu2011general} are different from the ones we have derived. This is partly because we have accounted for the effects of genetic drift and recombination, but also because we are computing the moments of slightly different quantities.
 
-In figure \ref{ensemble}, we have shown the admixture fractions for five replicate populations 5, 50, and 500 generations after an admixture pulse. The variance that \citep{verdu2011general} compute variance over all the replicate populations, while the variance we have computed in this paper is the expectation of the variance within a single population. When $g$ is small, these are not very different, but when $g$ is large, the variance within a population goes to zero, but the variance across the replicate populations does not. This effect is shown in Figure \ref{ek2_verdu}. Initially, both quantities decline exponentially in $g$, but after $2^g > nLg$ 
+In figure \ref{ensemble}, we have shown the admixture fractions for five replicate populations 5, 50, and 500 generations after an admixture pulse. The variance that \citep{verdu2011general} compute variance over all the replicate populations, while the variance we have computed in this paper is the expectation of the variance within a single population. When $g$ is small, these are similar, but when $g$ is large, the variance within a population goes to zero, but the variance across the replicate populations does not. This effect is shown in Figure \ref{ek2_verdu}. Initially, both quantities decline exponentially in $g$, but after $2^g > nLg$ 
 %[comment: this I don't understand]
 , the variance we predict begins to decline linearly instead. This is because variance is inversely proportional to the number of genetic ancestors of the sample. When $g$ is small, the number of genetic ancestors is approximately $2^g$. However, the approximate number of recombination events in the sample is approximately bounded by $nLg$, so when this quantity is smaller than $2^g$, it provides a better approximation for the number of genetic ancestors. In this regime, the variance will decline linearly in $g$.
 
@@ -286,13 +283,13 @@ It is also possible to compute the variance over all population replicates under
 In the case of one pulse of admixture, we can now solve equations \ref{k2} for $\mathbb{P}\left\{A_{1,g}(\ell)=1, A_{1,g}(\ell')=1\right\}$ to get
 
 \begin{align}\nonumber
-	\text{var}(H_{1(g)})&=\mathbb{E}(H_{1,g}^2)-s_{1,0}^2\\
-		&=\frac{1}{L^2}\int_0^L\int_0^L\mathbb{P}\left\{A_{1,g}(\ell)=1, A_{1,g}(\ell')=1\right\} d\ell d\ell'-s_{1,0}^2\nonumber\\
-		&=\frac{1}{L^2}\left(s_{1,0}-s_{1,0}^2\right)\int_0^L\int_0^L1-\left(1-[\ell\ell']\right)\frac{1-[\ell\ell']^g\left(1-\frac{1}{N}\right)^g}{1-[\ell\ell']\left(1-\frac{1}{N}\right)} d\ell d\ell.
+	\text{var}(H_{1(g)})&=\mathbb{E}(H_{1,g}^2)-s_{0}^2\\
+		&=\frac{1}{L^2}\int_0^L\int_0^L\mathbb{P}\left\{A_{1,g}(\ell)=1, A_{1,g}(\ell')=1\right\} d\ell d\ell'-s_{0}^2\nonumber\\
+		&=\frac{1}{L^2}\left(s_{0}-s_{0}^2\right)\int_0^L\int_0^L1-\left(1-[\ell\ell']\right)\frac{1-[\ell\ell']^g\left(1-\frac{1}{2N}\right)^g}{1-[\ell\ell']\left(1-\frac{1}{2N}\right)} d\ell d\ell.
 		\label{var}
 \end{align}
 
-This variance and the expectation of the second $k$-statistic have the same limit as $N\rightarrow\infty$, but for finite $N$, the variance will always be larger.
+This variance and the expectation of the second $k$-statistic have the same limit as $N\rightarrow\infty$, but for finite $N$, the variance is larger.
 This is because
 
 \begin{align*}
@@ -301,16 +298,18 @@ This is because
 	+\mathbb{E}\left[\text{var}(H_{1(g)}|\mathcal{G})\right]=\text{var}[k_1]+\mathbb{E}[k_2].
 \end{align*}
 
-The first variance is small when $N$ is large, but is always non-negative.  This function is also plotted on figure \ref{ek2_verdu}. The difference between this equation and equation \ref{k2} only becomes significant on a coalescent time scale. In the absence of genetic drift, the admixture fractions are approximately independent, becuase the samples do not share ancestors.
+The first variance is small when $N$ is large, but is always non-negative.  
+%This function is also plotted on figure \ref{ek2_verdu}. 
+The difference between this equation and equation \ref{k2} only becomes significant on a coalescent time scale. In the absence of genetic drift, the admixture fractions are approximately independent, because the samples do not share ancestors.
 
-\subsection*{Application African American Date}
-We applied this method to a subset of the ASW, CEU, and YRI data from the HapMap 3 project [citation here].
+\subsection*{Application to African American Data}
+We applied this method to a subset of the ASW, CEU, and YRI data from the HapMap 3 project \citep{international2010integrating}.
 After excluding children from trios, there were the genotypes for 49 ASW, 113 YRI, and 112 CEU individuals. 
-We estimated the admixture fractions using the supervised learning mode of \verb|Admixture| [citation here], with the CEU and YRI individuals assigned to separate clusters. 
+We estimated the admixture fractions using the supervised learning mode of \verb|Admixture|, with the CEU and YRI individuals assigned to separate clusters. 
 The sampling distribution of the admixture fractions was estimated using the block bootstrap with $10^4$ replicates and 2678 blocks, giving a block size of approximately 10 CM.
 The admixture fractions for the 49 ASW samples are shown in Figure \ref{structure_plot} and the observed $k$-statistics are given in table \ref{table:k_stats}. 
 
-We assumed a 3-parameter model of constant admixture. For $g_{start}\leq g\leq g_{stop}$, $s_g=s$ with $s_g=0$ elsewhere. By matching the block-bootstrap corrected $k_2$ and $k_3$ to the predictions of equation \ref{k2}, we obtained a point estimates of 
+We used a 3-parameter model of constant admixture in which the admixed population is entirely of African ancestry before generation $g_start$. For $g_{start}\leq g\leq g_{stop}$, the gene-flow probability from the European source population is $s_g=s$, with $s_g=0$ otherwise. By matching the block-bootstrap corrected $k_2$ and $k_3$ to the predictions of equation \ref{k2} using a total recombination length of $R=33\text{ Morgans}$, we obtained point estimates of 
 
 \begin{align*}
  \hat{s} &= 0.0277\\
@@ -325,31 +324,13 @@ We obtained confidence intervals, shown in Figure \ref{ci}, by simulation. For e
 The point estimates for $g_{start}$ and $g_{stop}$ correspond to the values for which the observed $k$-statistics are closest to their simulated medians. 
  
 \section*{Discussion}
+We have extended the mechanistic model of \citet{verdu2011general} to account for recombination and genetic drift. Doing so allows us to apply the predictions of this model to data. This mechanistic model allows for a large number of parameters. For the purposes of inference, it seems that imposing constraints, i.e.\ a small number of pulses or constant admixture, will be needed to narrow the search space.
 
-We have extended the mechanistic model of \citet{verdu2011general} to account for recombination and genetic drift. Doing so allows us to apply the predictions of this model to data. This mechanistic model allows for a large number of parameters. For the purposes of inference, it seems that imposing constraints, i.e. a small number of pulses or constant admixture, will be needed to narrow the search space.
+In this paper, we have assumed that admixture only comes from one source population, this need not be the case. To account for admixture from multiple source populations, equation \ref{k2} must be modified to account for the probability that haplotypes trace their descent to multiple source populations. Algorithmically, this is feasible, but the notation is cumbersome. The resulting equations are given in the appendix, along with the equations for computing expectations of higher-order $k$-statistics.
 
-In this paper, we have assumed that admixture only comes from one source population, this need not be the case. To account for admixture from multple source populations, equation \ref{k2} must be modified to account for the probability that haplotypes trace their descent to multiple source populations. Alogrithmically, this is feasible, but the notation is cumbersome. The resulting equations are given in the appendix, along with the equations for computing expectations of higher-order $k$-statistics.
+Applications of the method to African-American HapMap data provides estimates of the time since admixture between people of European and African descent in America.  Notice that the confidence set for the admixture parameters does not include values of $g_{stop} = 0$.  We interpret this as evidence that admixture rates have declined the last few generations.  The point estimate of time gene-flow stopped is $g_{stop} = 2$.  This abrupt stop in gene-flow is a limitation of our model. A more realistic interpretation of this estimate would be that the rate of gene-flow has declined within the last 5 generations or so. Another possible explanation for this estimate is that individuals with more recent admixture tend to not self-identify, or were otherwise not included in the ASW population. The effects of this sampling bias would be the same as the decline in gene flow we observed. Also notice that admixture before 15 generations ago can be rejected.  With a generation time of 25-30 years, this corresponds to 325-400 years, and is in good accordance with the historical record.  The point estimate of the time of first admixture is 11 generations, or approx. 275-330 years ago. 
 
-Applications of the method to African-American HapMap data provides estimates of the time since admixture between people of Europe and and African descent in America.  Notice that the confidence set for the admixture parameters does not include values of $g_stop = 0$.  We interpret this as evidence that admixture rates have declined the last two generations.  Also notice that admixture before 15 generations ago can be rejected.  With a generation time of 25-30 years, this corresponds to 325-400 years, and is in good accordance with the historical record.  The point estimate of the time of first admixture is 11 generations, or approx. 275-330 years ago. 
-
-Structure analyses have become one of the most commonly applied tools in population genomic analyses.  The theory developed in this paper allows users of structure analyses to interpret their data in the context of an model of admixture between populations, and should find use in many studies aimed at understanding the history of populations.
-
-%\section*{Constant Admixture}
-%Suppose instead that every generation, a fraction, $m_1$, of the population is replaced by migrants from source population 1. 
-%There are now three parameters, $\mathbf{\Theta}=\{T,m_0,m_1\}$.
-%The recursive formulas become slightly more complex, but still solvable.
-%\begin{align*}
-%	\mathbb{P}\{A_{1,T}(\ell)=1\}&= m_1+(1-m_1)\mathbb{P}\{A_{1,T-1}(\ell)=1\}\\
-%		&=1-(1-m_1)^T\left(1-\mathbb{P}\{A_{1,T}(\ell)=1\}\right)\\
-%		&=1-(1-m_1)^T\left(1-m_0\right).
-%\end{align*}
-%\begin{align*}
-%	\mathbf{P}_T&=
-%		\mathbf{L}_2\mathbf{U}_2
-%		\left(\begin{array}{cc}1-m_1 & 0 \\0 & (1-m_1)^2\end{array}\right)
-%		\mathbf{P}_{T-1}+\left(\begin{array}{c}m_1 \\ m_1^2+2m_1\mathbb{P}\{A_{1,T-1}(\ell)=1\}\end{array}\right)\\
-%	\stackrel{\mathcal{Z}}{\leftrightarrow}\\
-%\end{align*}
+Structure analyses have become one of the most commonly applied tools in population genomic analyses.  The theory developed in this paper allows users of structure analyses to interpret their data in the context of a model of admixture between populations, and should find use in many studies aimed at understanding the history of populations.
 
 \bibliographystyle{plainnat}
 \bibliography{lav}
@@ -367,8 +348,8 @@ Structure analyses have become one of the most commonly applied tools in populat
 \newpage
 \begin{figure}[htp!]
   \begin{center}
-    \includegraphics[scale=.6]{ensemble.eps}
-    \caption{The admixture fractions of five replicate populations (each column) 5, 50, and 500 generations after an admixture pulse. As the admixture event grows more ancient, the variability within a replicate population decreases, but some variability is still maintained across the populations.}
+    \includegraphics[scale=.6]{ensemble_with_variance.eps}
+    \caption{The admixture fractions of five replicate populations (each row) 5, 50, and 500 generations after an admixture pulse. The number underneath each structure plot is $k_2$, the sample variance, for that replicate population. For more ancient admixture events, the variability within a replicate population decreases to 0, but some variability is still maintained across the populations.}
     \label{ensemble}
   \end{center}
 \end{figure}
@@ -377,7 +358,7 @@ Structure analyses have become one of the most commonly applied tools in populat
 \begin{figure}[htp!]
   \begin{center}
     \includegraphics[scale=1.25]{verdu_comparison.eps}
-    \caption{The variance predicted by \citet{verdu2011general} and equation \ref{var}, plotted on a logarithmic scale. The variance we predict (red) is always larger, but the two a very similar when $g$ is small.}
+    \caption{The variance predicted by \citet{verdu2011general} and equation \ref{var}, plotted on a logarithmic scale. The variance we predict (red) is always larger, but the two are very similar when $g$ is small.}
     \label{ek2_verdu}
   \end{center}
 \end{figure}
@@ -446,6 +427,64 @@ $k_4$ & $-3.99\times10^{-5}$ & $-1.41\times 10^{-6}$ & $-3.85\times 10^{-5}$\\
 %   \right.
 %\end{align*} 
 
+\section*{Appendix}
+These are the matrices for computing $\mathbb{E}(k_3)$. The matrices for computing $\mathbb{E}(k_4)$ are $15\times  15$ and not given here, but can be found in \citep{hill1974disequilibrium}.
+
+\begin{align*}
+	\mathbf{v}_{3(g)}&=\left( \begin{array}{c}
+					 \mathbb{P}\{A_{1(g)}(\ell)=A_{1(g)}(\ell')=A_{1(g)}(\ell'')=1\}\\
+					 \mathbb{P}\{A_{1(g)}(\ell)=A_{1(g)}(\ell')=A_{2(g)}(\ell'')=1\} 	\\
+					 \mathbb{P}\{A_{1(g)}(\ell)=A_{2(g)}(\ell')=A_{2(g)}(\ell'')=1\} 	\\
+					 \mathbb{P}\{A_{1(g)}(\ell)=A_{2(g)}(\ell')=A_{1(g)}(\ell'')=1\} 	\\
+					 \mathbb{P}\{A_{1(g)}(\ell)=A_{2(g)}(\ell')=A_{3(g)}(\ell'')=1\}
+				\end{array} \right)\\
+	\mathbf{U}_3&=\left( \begin{array}{ccccc}
+					 [\ell\ell'\ell''] 		& [\ell\ell'|\ell''] 	& [\ell|\ell'\ell''] & [\ell\ell''|\ell'] & 0\\
+					 0 	& [\ell\ell'] & 0 & 0 & [\ell|\ell']\\
+					 0 	& 0 & [\ell'\ell''] & 0 & [\ell|\ell'']\\
+					 0 	& 0 & 0 & [\ell\ell''] & [\ell'|\ell'']\\
+					 0&0&0&0&1
+				\end{array} \right)\\
+	\mathbf{L}_3&=\frac{1}{4N^2}\left( \begin{array}{ccccc}
+					 4N^2 		& 0 	& 0 & 0 & 0\\
+					 2N 	& 2N-1 & 0 & 0 & 0\\
+					 2N 	& 0 & 2N-1 & 0 & 0\\
+					 2N 	& 0 & 0 & 2N-1 & 0\\
+					 1 & 2N-1 & 2N-1 & 2N-1 & (2N-1)(2N-2)
+				\end{array} \right)\\
+		\mathbf{D}_{3(g)}&=\left( \begin{array}{ccccc}
+					 1-s_g		& 0 	& 0 & 0 & 0\\
+					 0 	& (1-s_g)^2 & 0 & 0 & 0\\
+					 0 	& 0 & (1-s_{g})^2 & 0 & 0\\
+					 0 	& 0 & 0 & (1-s_{g})^2 & 0\\
+					 0 & 0 & 0 & 0 & (1-s_{g})^3
+				\end{array} \right)
+\end{align*}
+
+When there is migration from both source populations, the recursion relations for the $i$-point correlation functions will depend on $i-1$-point, $i-2$-point, $\dots$ correlations functions as well. As as example, consider the case of $\textbf{v}_{2(g)}$. Let the introgression probability from the second source population be given by $t_g$.
+The recursion equation for $\textbf{v}_{2(g)}$ now also depends on $\mathbf{v}_{1(g)}$.
+
+\begin{align*}
+\textbf{v}_{2(g+1)}&=\textbf{L}_2\left( \begin{array}{cc}
+					 1-s_g-t_g		& 0 \\
+					 0 	& (1-s_g-t_g)^2
+				\end{array} \right)\textbf{U}_2\textbf{v}_{2(g)}+ 
+				\left( \begin{array}{c}
+					 t_g \\
+					 t_g^2+2t_g\mathbb{P}\{A_{1(g)}(\ell)=1\}
+				\end{array} \right)\\
+				&=\textbf{L}_2\left( \begin{array}{cc}
+					 1-s_g-t_g		& 0 \\
+					 0 	& (1-s_g-t_g)^2
+				\end{array} \right)\textbf{U}_2\textbf{v}_{2(g)}+ 
+				\left( \begin{array}{c}
+					 t_g \\
+					 t_g^2+2t_g\mathbf{v}_{1(g)}
+				\end{array} \right).
+\end{align*}
+
+Similarly, the recursion equation for $\textbf{v}_{3(g)}$ depends on $\mathbf{v}_{2(g)}$ and $\mathbf{v}_{1(g)}$. 
+
 \end{document}
 
 \section*{Appendix}
@@ -463,9 +502,9 @@ Similar to the previous two, we get that
 
 The confidence intervals for these estimators depend on their variances. 
 \begin{align*}
-	\text{var}(k_1|\mathcal{M})&=\frac{\kappa_2}{n}\\
-	\text{var}(k_2|\mathcal{M})&=\frac{\kappa_4}{n}+\frac{2\kappa^2_2}{n-1}\\
-	\text{var}(k_3|\mathcal{M})&=\dots
+	\text{var}(k_1|\mathcal{G})&=\frac{\kappa_2}{n}\\
+	\text{var}(k_2|\mathcal{G})&=\frac{\kappa_4}{n}+\frac{2\kappa^2_2}{n-1}\\
+	\text{var}(k_3|\mathcal{G})&=\dots
 \end{align*}
 \begin{align*}
 	\mathbb{E}(k_2^2)
