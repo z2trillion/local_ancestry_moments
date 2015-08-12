@@ -19,8 +19,7 @@ individual’s genome, which makes their results both more intuitive to me, but 
 interpretable in comparison to sample population data. [Specifically, I find their definition of H 
 quite meaningful, whereas I could never figure out how $H_{1,g}$ in the earlier work could take on 
 values different from 0, 1/2, or 1, since it describes the admixture proportions of one individual at 
-exactly one locus, but that may be my own inflexible understanding.]\\
-\textit{The random variable $H_{1,g}$ only takes on values from the set $\{0, 1/2, 1\}$, but its expectation can be equal to other values in the range $[0,1]$}\\
+exactly one locus, but that may be my own inflexible understanding.]
 But furthermore they incorporate drift and the random recombination 
 Aside from the numerous typos, in both text and equations, I have observed no substantial 
 problems with the modeling, and find the applications to African American data well-chosen. It 
@@ -28,8 +27,6 @@ would have been neat to see the method applied to an older admixture event for w
 ancestry estimates are not possible, but I understand it would be difficult to validate such an 
 inference and older admixed datasets might not be readily available. Overall, I think this is an 
 interesting and relevant work.\\ 
-\textit{We used African American data because the }
-\\
 line 57 - delete second “model” \textit{This has been deleted.}\\
 lines 116-117 equations: should the $M$ rather be $G$ in the equations? \textit{Yes, we have changed them to G's}\\
 line 118 - ``factions" $\rightarrow$ ``fractions" \textit{We have added the r.}\\
@@ -138,19 +135,25 @@ admixture and could provide a valuable tool for increasing the interpretability 
 
 Below I provide a few comments that I hope will be helpful.
 
-\subsection{} I found the author's implicit invocation of de Finetti's representation theorem and its extensions by
-Hamos and Savage a little hard to wrap my head around here, primarily because it is not quite clear to me
-what they are considering $\mathcal{G}$ to be. At lines 104 and 105 they seem to be making the case that
-conditional on a certain realization of a random distribution the H's will be iid. But, then, later, they seem
-to be equating $\mathcal{G}$ with a realization from the distribution of possible genealogies. I guess the
-confusing part for me here is that if one is trying to compute the expected value of $k_2$, then presumably
-you are conditioning on a certain realization of $\mathcal{G}$, and if that is the case and you are adhering to
-the interpretation of $\mathcal{G}$ as being a realization from a random distribution a la the representation
-theorem, then $H_{i(g)}$ and $H_{j(g)}$ should be conditionally independent and hence the terms involving the
-expectations of their products would simplify quite a bit further than what we find above line 137. So, on
-the one hand the authors are saying that the H's are conditionally iid, and on the other they are saying that
-they are correlated and that is central to their derivation. It would be great if this could be clarified
-somewhat.
+\subsection{} I found the author's implicit invocation of de Finetti's representation theorem and its extensions by Hamos and Savage a little hard to wrap my head around here, primarily because it is not quite clear to me what they are considering $\mathcal{G}$ to be. 
+At lines 104 and 105 they seem to be making the case that conditional on a certain realization of a random distribution the H's will be iid. 
+But, then, later, they seem to be equating $\mathcal{G}$ with a realization from the distribution of possible genealogies. 
+I guess the confusing part for me here is that if one is trying to compute the expected value of $k_2$, then presumably you are conditioning on a certain realization of $\mathcal{G}$, 
+and if that is the case and you are adhering to
+the interpretation of $\mathcal{G}$ as being a realization from a random distribution a la the representation theorem, 
+then $H_{i(g)}$ and $H_{j(g)}$ should be conditionally independent and hence the terms involving the
+expectations of their products would simplify quite a bit further than what we find above line 137. 
+So, on the one hand the authors are saying that the H's are conditionally iid, and on the other they are saying that they are correlated and that is central to their derivation. 
+It would be great if this could be clarified somewhat.\\
+\textit{
+	\indent
+	Some of this confusion arise from an error on our part in which we wrote $\mathcal{M}$ when we meant to write $\mathcal{G}$.
+	We apologize for this.
+	In this paper, we take $\mathcal{G}$ to be the genealogy of the admixed population.
+	Strictly speaking, this genealogy is more informative than the limiting ``empirical measure'' because many of the genealogical ancestors are not genetic ancestors, and so do not influence the observed admixture fractions. \\
+	\indent 
+	All of the expectations we compute in this paper (unless explicitly stated to be conditional), are over the distribution of $\mathcal{G}$. When marginalized over this random distribution, $H_{i(g)}$ and $H_{j(g)}$ are no longer independent, so computing $\mathbb{E}[k_i]$ becomes non-trivial.
+}
 
 \subsection{} One question I have as I read this is, "How far from sufficient are the H's?" The Hs themselves are going
 to be functions of the underlying "cluster of origin" process estimate by, say, structure, when using the
@@ -158,7 +161,15 @@ linkage model. So, instead of boiling everything down to a single real number be
 individual (the H's), one might consider trying to do inference from, say, the distribution of the lengths of
 tracts of common descent from different clusters. I suspect that might carry considerably more
 information that is relevant to estimating admixture-model parameters than just the H's. How much
-information is lost by just considering the H's? Some discussion of this would be appreciated.
+information is lost by just considering the H's? Some discussion of this would be appreciated.\\
+\textit{
+	The problem on inferring admixture times from the distribution of admixture tract lengths has been considered in papers such as Pool and Nielsen 2009, Gravel 2012, and Liang and Nielsen 2014. 
+	We see two key distinctions between using admixture fractions and admixture tracts.
+	The first is that admixture fractions may be available in situations where admixture tracts are not, such as when marker density is low or a recombination map is not available. 
+	Even when both are available, estimating admixture fractions is more robust than estimating admixture tract length distributions.  
+	The second is that finding the theoretical admixture tract length distribution is non-trivial. 
+	The mixture-of-exponentials approximation derived in Gravel 2012 is not always accurate.	
+}
 
 \subsection{} Given 2, it seems that this method would be particularly appropriate in cases where a map is not
 available --- i.e. in molecular ecology contexts studying non-model organisms. This being the case, it
