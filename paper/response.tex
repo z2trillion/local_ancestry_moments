@@ -77,6 +77,16 @@ Fortunately, even if I am correct, I believe that the discrepancy can be correct
 using the law of total variance. At line 245.5, the authors do something similar, but condition the variance
 over "population" genealogies. They could solve most of this problem by conditioning over "individual"
 genealogies, as in Gravel (2012).
+\textit{
+	We do not use a "Markovian Wright-Fisher" model in this paper.
+	The equation in this manuscript most comparable to equation (8) in Gravel (2012) is equation XX.
+	Equation YY in our manuscript gives the expectation of the second $k$-statistic,
+	in common usage, this would be the variance, but as we explain in lines .... in our case, it is not.
+	The variance of the admixture fractions (marginalizing over all genealogies) is computed in equation XX.
+	This does have two terms corresponding to the two in  equation (8) in Gravel (2012).
+	We have adopted the clearer terminology from that paper and now refer to the two as the "assortment variance" 
+	and "genealogy variance". 
+}
 
 \subsection{}
 The manuscript presents a moments method to estimate parameters directly from the distribution of
@@ -86,19 +96,32 @@ for here, such as assortative mating, population structure, nonrandom sampling, 
 and correlated errors in ancestry assignments. If this method is to be considered for practical inference,
 these caveats should be presented clearly to avoid mis-use. I have found practical application of variance
 estimates to be perilous in most practical cases.
+\textit{
+	We have noted these caveats in 
+}
 
 \subsection{}
-By contrast, I suspect that drift and within-vs-cross-population effects will be small to negligibleexcept
+By contrast, I suspect that drift and within-vs-cross-population effects will be small to negligible except
 for very small populations. This is not to say that it is not useful to model these, but it may be useful to
 point this out. The authors show in figure 2 important differences in the mean ancestry proportion after
 500 generations in an admixed population, but I found little detail as to how the simulation was
 conducted. Gravel (2012) estimates the standard deviation in ancestry proportion across replicate
 populations at 0.05 for a population of size 100, so I'm assuming that the simulation presented here uses
 a population of similarly small size.
+\textit{
+	We have included additional details about the simulations.
+	The simulations used a population size of 2N=1000, with m=0.5 and total recombination distance of 1 Morgan.
+	We have added these details to the paper. 
+	The results of our simulations are similar to those of Gravel (2012) and Rosenberg (????) when the admixture 
+	pulse is recent. 
+	As $T$ becomes larger, the effects of genetic drift become significant, and our simulation results diverge. 
+}
 
 \subsection{}
 Finally, if simulations have been performed, it would be a good idea to provide comparisons with the
 theoretical results!
+[Comment: I have simulations, I just need to make the plots.]
+
 
 \subsection*{Minor points/clarifications}\ \\
 Line 116.5: M is not defined. It may also be useful to spell out "the expectations are taken over ..."--I'm not
