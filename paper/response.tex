@@ -86,75 +86,89 @@ Figure 3 - ``but the two are very similar"\\
 	\textit{We have added the missing ``re''.}
 
 
-\section{Review 2}
-This article proposes theoretical derivations for moments of the distribution of ancestry proportions in admixed populations. This is an interesting topic, and the authors propose a general recursive method to calculate high-order moments of the distribution that was not presented before. The manuscript takes as a starting point the model of Verdu and Rosenberg (VR) for the estimation of variance in admixed populations. VR does not take into account drift or the finiteness of the genome, and the present manuscript sets out to model these effects. The authors also distinguish between expectations within population (i.e., given a fixed population genealogy), and between populations (i.e., between individuals having independently sampled genealogies), and propose an inference scheme for structure data.
+\section{Review 2} This article proposes theoretical derivations for moments of
+the distribution of ancestry proportions in admixed populations. This is an
+interesting topic, and the authors propose a general recursive method to
+calculate high-order moments of the distribution that was not presented before.
+The manuscript takes as a starting point the model of Verdu and Rosenberg (VR)
+for the estimation of variance in admixed populations. VR does not take into
+account drift or the finiteness of the genome, and the present manuscript sets
+out to model these effects. The authors also distinguish between expectations
+within population (i.e., given a fixed population genealogy), and between
+populations (i.e., between individuals having independently sampled
+genealogies), and propose an inference scheme for structure data.
 
-Even though this is an interesting manuscript, a few issues should be addressed.\\
-\subsection{}
-Gravel (2012) also discusses mean and variance in ancestry proportion in models with finite genome, drift,
-and continuous migrations, although not all three jointly (pp 611-613 and 618-619). It also presents an
-application to admixture timing in the ASW, also finding that variance in admixture proportion supports
-more than a single pulse of admixture. The method was also used in Botigue et al 10.1073/pnas.1306223110.
-This manuscript is more detailed than Gravel (2012) on this topic, but there is considerable overlap. At
-the very least, the authors must acknowledge the overlap and compare the results in some detail.\\
-\subsection{}
-The equation at line 176.5 is comparable to the second term in equation (8) in Gravel (2012).
-However, the first term of equation (8) (dominant in many practical cases) appears to be missing. Even
-though the present manuscript takes into account correlations among individuals induced by the
-genealogy, it does not seem to take into account the correlation among loci induced by genealogies.
-If I understand things correctly, the authors start off with a "Diploid Wright-Fisher" model, but then
-perform calculations according to a "Markovian Wright-Fisher" model (see Figure 2B in Gravel (2012)). If I
-*don't* understand things correctly, I suppose that clarifications about exactly what expectations are
-calculated would be useful (see below).
+Even though this is an interesting manuscript, a few issues should be
+addressed.\\
 
-Fortunately, even if I am correct, I believe that the discrepancy can be corrected in the present models
-using the law of total variance. At line 245.5, the authors do something similar, but condition the variance
-over "population" genealogies. They could solve most of this problem by conditioning over "individual"
-genealogies, as in Gravel (2012).
-\textit{
-	We do not use a "Markovian Wright-Fisher" model in this paper.
-	The equation in this manuscript most comparable to equation (8) in Gravel (2012) is equation XX.
-	Equation YY in our manuscript gives the expectation of the second $k$-statistic,
-	in common usage, this would be the variance, but as we explain in lines .... in our case, it is not.
-	The variance of the admixture fractions (marginalizing over all genealogies) is computed in equation XX.
-	This does have two terms corresponding to the two in  equation (8) in Gravel (2012).
-	We have adopted the clearer terminology from that paper and now refer to the two as the "assortment variance"
-	and "genealogy variance".
-}
+\subsection{} Gravel (2012) also discusses mean and variance in ancestry
+proportion in models with finite genome, drift, and continuous migrations,
+although not all three jointly (pp 611-613 and 618-619). It also presents an
+application to admixture timing in the ASW, also finding that variance in
+admixture proportion supports more than a single pulse of admixture. The method
+was also used in Botigue et al 10.1073/pnas.1306223110. This manuscript is more
+detailed than Gravel (2012) on this topic, but there is considerable overlap. At
+the very least, the authors must acknowledge the overlap and compare the results
+in some detail.\\
+\subsection{} The equation at line 176.5 is comparable to the second term in
+equation (8) in Gravel (2012). However, the first term of equation (8) (dominant
+in many practical cases) appears to be missing. Even though the present
+manuscript takes into account correlations among individuals induced by the
+genealogy, it does not seem to take into account the correlation among loci
+induced by genealogies. If I understand things correctly, the authors start off
+with a "Diploid Wright-Fisher" model, but then perform calculations according to
+a "Markovian Wright-Fisher" model (see Figure 2B in Gravel (2012)). If I *don't*
+understand things correctly, I suppose that clarifications about exactly what
+expectations are calculated would be useful (see below).
 
-\subsection{}
-The manuscript presents a moments method to estimate parameters directly from the distribution of
-inferred admixture proportions. Even though distributions of ancestry proportions are indeed informative
-of demography, its higher moments are also very sensitive to a diversity of effects that are not accounted
-for here, such as assortative mating, population structure, nonrandom sampling, sex-biased admixture,
-and correlated errors in ancestry assignments. If this method is to be considered for practical inference,
-these caveats should be presented clearly to avoid mis-use. I have found practical application of variance
-estimates to be perilous in most practical cases.
-\textit{
-	We agree that these of deviations from the Wright-Fisher model and our model of admixture fraction
-	estimation  will impact our ability to make accurate inferences.
-	Assortative mating, population structure, would tend to increase $\mathbb{E}[k_2]$, which would bias our
-	estimates of the admixture time downwards.
-	Correlated errors in ancestry assignment, on the other hand, would cause $k_2$ to be downwardly-biased,
-	which would make our estimate of the admixture time too big.
-}
+Fortunately, even if I am correct, I believe that the discrepancy can be
+corrected in the present models using the law of total variance. At line 245.5,
+the authors do something similar, but condition the variance over "population"
+genealogies. They could solve most of this problem by conditioning over
+"individual" genealogies, as in Gravel (2012).
+	\textit{ We do not use a "Markovian Wright-Fisher" model in this paper. The
+	equation in this manuscript most comparable to equation (8) in Gravel (2012)
+	is equation XX. Equation YY in our manuscript gives the expectation of the
+	second $k$-statistic, in common usage, this would be the variance, but as we
+	explain in lines .... in our case, it is not. The variance of the admixture
+	fractions (marginalizing over all genealogies) is computed in equation XX.
+	This does have two terms corresponding to the two in  equation (8) in Gravel
+	(2012). We have adopted the clearer terminology from that paper and now refer
+	to the two as the "assortment variance" and "genealogy variance". }
 
-\subsection{}
-By contrast, I suspect that drift and within-vs-cross-population effects will be small to negligible except
-for very small populations. This is not to say that it is not useful to model these, but it may be useful to
-point this out. The authors show in figure 2 important differences in the mean ancestry proportion after
-500 generations in an admixed population, but I found little detail as to how the simulation was
-conducted. Gravel (2012) estimates the standard deviation in ancestry proportion across replicate
-populations at 0.05 for a population of size 100, so I'm assuming that the simulation presented here uses
-a population of similarly small size.
-\textit{
-	We have included additional details about the simulations.
-	The simulations used a population size of 2N=1000, with m=0.5 and total recombination distance of 1 Morgan.
-	We have added these details to the paper.
-	The results of our simulations are similar to those of Gravel (2012) and Rosenberg (????) when the admixture
-	pulse is recent.
-	As $T$ becomes larger, the effects of genetic drift become significant, and our simulation results diverge.
-}
+\subsection{} The manuscript presents a moments method to estimate parameters
+directly from the distribution of inferred admixture proportions. Even though
+distributions of ancestry proportions are indeed informative of demography, its
+higher moments are also very sensitive to a diversity of effects that are not
+accounted for here, such as assortative mating, population structure, nonrandom
+sampling, sex-biased admixture, and correlated errors in ancestry assignments.
+If this method is to be considered for practical inference, these caveats should
+be presented clearly to avoid mis-use. I have found practical application of
+variance estimates to be perilous in most practical cases.
+	\textit{ We agree that these of deviations from the Wright-Fisher model and
+	our model of admixture fraction estimation  will impact our ability to make
+	accurate inferences. Assortative mating, population structure, would tend to
+	increase $\mathbb{E}[k_2]$, which would bias our estimates of the admixture
+	time downwards. Correlated errors in ancestry assignment, on the other hand,
+	would cause $k_2$ to be downwardly-biased, which would make our estimate of
+	the admixture time too big. }
+
+\subsection{} By contrast, I suspect that drift and within-vs-cross-population
+effects will be small to negligible except for very small populations. This is
+not to say that it is not useful to model these, but it may be useful to point
+this out. The authors show in figure 2 important differences in the mean
+ancestry proportion after 500 generations in an admixed population, but I found
+little detail as to how the simulation was conducted. Gravel (2012) estimates
+the standard deviation in ancestry proportion across replicate populations at
+0.05 for a population of size 100, so I'm assuming that the simulation presented
+here uses a population of similarly small size.
+	\textit{ We have included additional details about the simulations. The
+	simulations used a population size of 2N=1000, with m=0.5 and total
+	recombination distance of 1 Morgan. We have added these details to the paper.
+	The results of our simulations are similar to those of Gravel (2012) and
+	Rosenberg (????) when the admixture pulse is recent. As $T$ becomes larger,
+	the effects of genetic drift become significant, and our simulation results
+	diverge. }
 
 \subsection{}
 Finally, if simulations have been performed, it would be a good idea to provide comparisons with the
@@ -179,101 +193,174 @@ I don't always sign my reviews, but I gave so many hints at this point that I mi
 Simon Gravel
 
 \section{Reviewer 3}
-Liang and Nielsen consider the joint distribution of admixture proportions $H_{i(g)}$, $i\in 1,\ldots, n$ of
-n individuals sampled from an admixed population g generations after the start of admixture. Previous
-work apparently explored the marginal distribution of the admixture proportion of a single individual
-drawn from an admixed population. (This distribution was marginal both in the sense of applying,
-marginally, to a single individual, and also being marginalized over all possible genealogies). By contrast,
-Liang and Nielsen explore the joint distribution of H's conditional on the unknown genealogy connecting
-the samples.
+Liang and Nielsen consider the joint distribution of admixture proportions
+$H_{i(g)}$, $i\in 1,\ldots, n$ of n individuals sampled from an admixed
+population g generations after the start of admixture. Previous work apparently
+explored the marginal distribution of the admixture proportion of a single
+individual drawn from an admixed population. (This distribution was marginal
+both in the sense of applying, marginally, to a single individual, and also
+being marginalized over all possible genealogies). By contrast, Liang and
+Nielsen explore the joint distribution of H's conditional on the unknown
+genealogy connecting the samples.
 
-They derive expressions for the expected values of various k-statistics that can be computed from a
-sample of H's, and then, by relating these expected values to admixture parameters in some special cases
-they develop a method of moments estimator for these admixture parameters.
+They derive expressions for the expected values of various k-statistics that can
+be computed from a sample of H's, and then, by relating these expected values to
+admixture parameters in some special cases they develop a method of moments
+estimator for these admixture parameters.
 
-This is an interesting effort to relate admixture proportions, which are routinely estimated by programs
-like structure (they are the individual q values), to the parameters of mechanistic models of population
-admixture and could provide a valuable tool for increasing the interpretability of results from structure.
+This is an interesting effort to relate admixture proportions, which are
+routinely estimated by programs like structure (they are the individual q
+values), to the parameters of mechanistic models of population admixture and
+could provide a valuable tool for increasing the interpretability of results
+from structure.
 
 Below I provide a few comments that I hope will be helpful.
 
-\subsection{} I found the author's implicit invocation of de Finetti's representation theorem and its extensions by Hamos and Savage a little hard to wrap my head around here, primarily because it is not quite clear to me what they are considering $\mathcal{G}$ to be.
-At lines 104 and 105 they seem to be making the case that conditional on a certain realization of a random distribution the H's will be iid.
-But, then, later, they seem to be equating $\mathcal{G}$ with a realization from the distribution of possible genealogies.
-I guess the confusing part for me here is that if one is trying to compute the expected value of $k_2$, then presumably you are conditioning on a certain realization of $\mathcal{G}$,
-and if that is the case and you are adhering to
-the interpretation of $\mathcal{G}$ as being a realization from a random distribution a la the representation theorem,
-then $H_{i(g)}$ and $H_{j(g)}$ should be conditionally independent and hence the terms involving the
-expectations of their products would simplify quite a bit further than what we find above line 137.
-So, on the one hand the authors are saying that the H's are conditionally iid, and on the other they are saying that they are correlated and that is central to their derivation.
-It would be great if this could be clarified somewhat.\\
+\subsection{}
+I found the author's implicit invocation of de Finetti's representation theorem
+and its extensions by Hamos and Savage a little hard to wrap my head around
+here, primarily because it is not quite clear to me what they are considering
+$\mathcal{G}$ to be. At lines 104 and 105 they seem to be making the case that
+conditional on a certain realization of a random distribution the H's will be
+iid. But, then, later, they seem to be equating $\mathcal{G}$ with a realization
+from the distribution of possible genealogies. I guess the confusing part for me
+here is that if one is trying to compute the expected value of $k_2$, then
+presumably you are conditioning on a certain realization of $\mathcal{G}$, and
+if that is the case and you are adhering to the interpretation of $\mathcal{G}$
+as being a realization from a random distribution a la the representation
+theorem, then $H_{i(g)}$ and $H_{j(g)}$ should be conditionally independent and
+hence the terms involving the expectations of their products would simplify
+quite a bit further than what we find above line 137. So, on the one hand the
+authors are saying that the H's are conditionally iid, and on the other they are
+saying that they are correlated and that is central to their derivation. It
+would be great if this could be clarified somewhat.\\
 \textit{
-	\indent
-	Some of this confusion arise from an error on our part in which we wrote $\mathcal{M}$ when we meant to write $\mathcal{G}$.
-	We apologize for this.
-	In this paper, we take $\mathcal{G}$ to be the genealogy of the admixed population.
-	Strictly speaking, this genealogy is more informative than the limiting ``empirical measure'' because many of the genealogical ancestors are not genetic ancestors, and so do not influence the observed admixture fractions. \\
-	\indent
-	All of the expectations we compute in this paper (unless explicitly stated to be conditional), are over the distribution of $\mathcal{G}$. When marginalized over this random distribution, $H_{i(g)}$ and $H_{j(g)}$ are no longer independent, so computing $\mathbb{E}[k_i]$ becomes non-trivial.
+	Some of this confusion may arise from an error on our part in which we wrote
+	$\mathcal{M}$ when we meant to write $\mathcal{G}$. We apologize for this. In
+	this paper, we take $\mathcal{G}$ to be the genealogy of the admixed
+	population. Strictly speaking, this genealogy is more informative than the
+	limiting ``empirical measure'' because many of the genealogical ancestors are
+	not genetic ancestors, and so do not influence the observed admixture
+	fractions. All of the expectations we compute in this paper (unless explicitly
+	stated to be conditional), are over the distribution of $\mathcal{G}$. When
+	marginalized over this random distribution, $H_{i(g)}$ and $H_{j(g)}$ are no
+	longer independent, so computing $\mathbb{E}[k_i]$ becomes non-trivial.
 }
 
-\subsection{} One question I have as I read this is, "How far from sufficient are the H's?" The Hs themselves are going
-to be functions of the underlying "cluster of origin" process estimate by, say, structure, when using the
-linkage model. So, instead of boiling everything down to a single real number between 0 and 1 for each
-individual (the H's), one might consider trying to do inference from, say, the distribution of the lengths of
-tracts of common descent from different clusters. I suspect that might carry considerably more
-information that is relevant to estimating admixture-model parameters than just the H's. How much
-information is lost by just considering the H's? Some discussion of this would be appreciated.\\
+\subsection{}
+One question I have as I read this is, "How far from sufficient are the H's?"
+The Hs themselves are going to be functions of the underlying "cluster of
+origin" process estimate by, say, structure, when using the linkage model. So,
+instead of boiling everything down to a single real number between 0 and 1 for
+each individual (the H's), one might consider trying to do inference from, say,
+the distribution of the lengths of tracts of common descent from different
+clusters. I suspect that might carry considerably more information that is
+relevant to estimating admixture-model parameters than just the H's. How much
+information is lost by just considering the H's? Some discussion of this would
+be appreciated.\\
 \textit{
-	The problem on inferring admixture times from the distribution of admixture tract lengths has been considered in papers such as Pool and Nielsen 2009, Gravel 2012, and Liang and Nielsen 2014.
-	We see two key distinctions between using admixture fractions and admixture tracts.
-	The first is that admixture fractions may be available in situations where admixture tracts are not, such as when marker density is low or a recombination map is not available.
-	Even when both are available, estimating admixture fractions is more robust than estimating admixture tract length distributions.
-	The second is that finding the theoretical admixture tract length distribution is non-trivial.
-	The mixture-of-exponentials approximation derived in Gravel 2012 is not always accurate.
+	The problem on inferring admixture times from the distribution of admixture
+	tract lengths has been considered in papers such as Pool and Nielsen 2009,
+	Gravel 2012, and Liang and Nielsen 2014. We see two key distinctions between
+	using admixture fractions and admixture tracts. The first is that admixture
+	fractions may be available in situations where admixture tracts are not, such
+	as when marker density is low or a recombination map is not available. Even
+	when both are available, estimating admixture fractions is more robust than
+	estimating admixture tract length distributions. The second is that finding
+	the theoretical admixture tract length distribution is non-trivial. The
+	mixture-of-exponentials approximation derived in Gravel 2012 is not always
+	accurate.
 }
 
-\subsection{} Given 2, it seems that this method would be particularly appropriate in cases where a map is not
-available --- i.e. in molecular ecology contexts studying non-model organisms. This being the case, it
-would be good if the authors were able to address how robust (or not) the model might be to certain
-departures from the sampling model and the mechanistic admixture model they employ. Of most concern
-to me as regards the application of their method in molecular ecology contexts is the effect of population
-structure within the admixed population. Population structure within the admixed population will clearly
-alter the observed distribution of the H's. I think it would be good to know how the strength of an effect
-like population structure compares to the strength of the admixture parameters in their model in altering
-the distribution of the H's. I suspect that it could have a large effect that could complicate estimation of
-the admixture parameters in populations with unknown spatial gradients of introgression, etc.
+\subsection{} Given 2, it seems that this method would be particularly
+appropriate in cases where a map is not available --- i.e. in molecular ecology
+contexts studying non-model organisms. This being the case, it would be good if
+the authors were able to address how robust (or not) the model might be to
+certain departures from the sampling model and the mechanistic admixture model
+they employ. Of most concern to me as regards the application of their method in
+molecular ecology contexts is the effect of population structure within the
+admixed population. Population structure within the admixed population will
+clearly alter the observed distribution of the H's. I think it would be good to
+know how the strength of an effect like population structure compares to the
+strength of the admixture parameters in their model in altering the distribution
+of the H's. I suspect that it could have a large effect that could complicate
+estimation of the admixture parameters in populations with unknown spatial
+gradients of introgression, etc.\\
+\textit{
+}
 
-\subsection{} Echoing 3, a full set of simulations evaluating the power of the method across a range of scenarios (in
-terms of number of markers and the differentiation between the two admixing populations) would be nice to
-have, as well as assessments of the robustness (or not) of the model to population structure within the
-admixed population. In some ways, it appears to me that the estimation of these sorts of admixture
-parameters could be analogous to the estimation of K---the number of clusters---using the program
-structure, an exercise that is fraught with peril and warrants caution because real populations seldom
-behave like idealized ones. It would be nice if the caveats involved in this method could be stated up front.
-(not that this would necessarily keep molecular ecologists from abusing it somewhat...the estimation of K
-being a case in point).
+\subsection{}
+Echoing 3, a full set of simulations evaluating the power of the
+method across a range of scenarios (in terms of number of markers and the
+differentiation between the two admixing populations) would be nice to have, as
+well as assessments of the robustness (or not) of the model to population
+structure within the admixed population. In some ways, it appears to me that the
+estimation of these sorts of admixture parameters could be analogous to the
+estimation of K---the number of clusters---using the program structure, an
+exercise that is fraught with peril and warrants caution because real
+populations seldom behave like idealized ones. It would be nice if the caveats
+involved in this method could be stated up front. (not that this would
+necessarily keep molecular ecologists from abusing it somewhat...the estimation
+of K being a case in point).\\
+\textit{
+}
 
-\subsection{} The assumption that the estimation error of $H_{i(g)}$ is independent of $H_{i(g)}$ at line 208 seems like it
-might not be the best assumption. A more reasonable assumption might be that the variance of $\epsilon_i$
-is proportional to $H_i(1-H_i)$, as is common when dealing with proportions. Of course, this complicates the
-calculations. Perhaps some type of variance-stabilzing transformation (like arc-sine square root) might be
+\subsection{}
+The assumption that the estimation error of $H_{i(g)}$ is
+independent of $H_{i(g)}$ at line 208 seems like it might not be the best
+assumption. A more reasonable assumption might be that the variance of
+$\epsilon_i$ is proportional to $H_i(1-H_i)$, as is common when dealing with
+proportions. Of course, this complicates the calculations. Perhaps some type of
+variance-stabilzing transformation (like arc-sine square root) might be
 useful.\\
-\textit{TBD}
+\textit{
+	TBD
+}
 
-\subsection{} It would be nice to have a github repository with the all the scripts the authors used so that their
-analyses are easily reproducible. In fact, it seems like some simple software (in R) for example,
-implementing the authors' method is conspicuously absent. Many journals today require that data sets be
-archived to insure reproducibility, and I think it is incumbent upon theoreticians, likewise, to offer clean
-software or scripts to ensure reproducibility, and in some cases ease interpretation of methods.
-\textit{The simulation code and scripts to reproduce the plots in the manuscript have been uploaded to github:  \texttt{https://github.com/z2trillion/local\_ancestry\_moments}.}
+\subsection{}
+It would be nice to have a github repository with the all the
+scripts the authors used so that their analyses are easily reproducible. In
+fact, it seems like some simple software (in R) for example, implementing the
+authors' method is conspicuously absent. Many journals today require that data
+sets be archived to insure reproducibility, and I think it is incumbent upon
+theoreticians, likewise, to offer clean software or scripts to ensure
+reproducibility, and in some cases ease interpretation of methods.\\
+\textit{The
+simulation code and scripts to reproduce the plots in the manuscript have been
+uploaded to github:
+\texttt{https://github.com/z2trillion/local\_ancestry\_moments}.}
 
 \subsection*{Minor points}
-\subsubsection{} Equation above line 117. Should the $\mathcal{M}$ be $\mathcal{G}?$ If not, $\mathcal{M}$ needs definition. \textit{We have changed the $\mathcal{M}$ to a $\mathcal{G}$.}
-\subsubsection{} I think that the second summation in the equation below line 136 should be over $i\neq j$, rather than
-$i,j = 1$ up to n.
-\textit{We have made this change.}
-\subsubsection{} Line 148: Wait a moment (what a terrible pun!). Isn't $k_2$ estimating a central moment? Perhaps some more general discussion of $k$-statistics earlier in the paper would be good.
-\textit{The $k$-statistics are estimators for cumulants: $\mathbb{E}(k_i) = \kappa_i$ while the $h$-statistics are estimators for central moments: $\mathbb{E}(h_i) = \mu_i$. For $i=1,2,3$, the central moment and cumulant are the same, with $h_i$ and $k_i$ having the same formula, but for $i\geq 4$, the $i^\text{th}$ cumulant is not equal to the $i^\text{th}$ central moment.}
-\subsubsection{} The manuscript would benefit from a few extra rounds of proofreading.
+\subsubsection{}
+Equation above line 117. Should the
+$\mathcal{M}$ be $\mathcal{G}?$ If not, $\mathcal{M}$ needs definition.\\
+\textit{
+	We have changed the $\mathcal{M}$ to a $\mathcal{G}$.
+}
+
+\subsubsection{}
+I think that the second summation in the equation below line 136 should be over
+$i\neq j$, rather than $i,j = 1$ up to n.\\
+\textit{
+	Our original version was wrong. We have made this change.
+}
+
+\subsubsection{}
+Line 148: Wait a moment (what a terrible pun!). Isn't $k_2$ estimating a central
+moment? Perhaps some more general discussion of $k$-statistics earlier in the
+paper would be good. \\
+\textit{
+	The $k$-statistics are estimators for cumulants: $\mathbb{E}(k_i) = \kappa_i$
+	while the $h$-statistics are estimators for central moments: $\mathbb{E}(h_i)
+	= \mu_i$. For $i=1,2,3$, the central moment and cumulant are the same, with
+	$h_i$ and $k_i$ having the same formula, but for $i\geq 4$, the $i^\text{th}$
+	cumulant is not equal to the $i^\text{th}$ central moment. In the revised
+	paper, we explain this difference in lines TODO(mason).
+}
+
+\subsubsection{} The manuscript would benefit from a few extra rounds of
+proofreading.\\
+\textit{
+	We have gone through a couple more times.
+}
 \end{document}
